@@ -1,29 +1,70 @@
 const page = document.querySelector("body");
+
+const gameDisplay = document.querySelector(".table");
+
+const topLeft = document.querySelector("#box-1");
+const topMid = document.querySelector("#box-2");
+const topRight = document.querySelector("#box-3");
+const midLeft = document.querySelector("#box-4");
+const mid = document.querySelector("#box-5");
+const midRight = document.querySelector("#box-6");
+const bottomLeft = document.querySelector("#box-7");
+const bottomMid = document.querySelector("#box-8");
+const bottomRight = document.querySelector("#box-9");
+
+const restart = document.querySelector('#btn')
+
 let isX = true;
 
 let startingPage = true;
 
 const selectBox = (boxes, symbol) => {
+    const topLeft = document.querySelector("#box-1");
+    const topMid = document.querySelector("#box-2");
+    const topRight = document.querySelector("#box-3");
+    const midLeft = document.querySelector("#box-4");
+    const mid = document.querySelector("#box-5");
+    const midRight = document.querySelector("#box-6");
+    const bottomLeft = document.querySelector("#box-7");
+    const bottomMid = document.querySelector("#box-8");
+    const bottomRight = document.querySelector("#box-9");
+// restart.addEventListener('click', () => {
+    //     boxes.forEach((box) => {
+    //         box.innerHTML = '';
+    //     });
+    // });
+
     boxes.forEach((box) => {
-        box.addEventListener("click", () => {
-            console.log(box);
+        if(topLeft.innerHTML == 'O' && topMid.innerHTML == 'O' && topRight.innerHTML == 'O' || topLeft.innerHTML == 'X' && topMid.innerHTML == 'X' && topRight.innerHTML == 'X'){
+            page = ``; 
+            page.innerHTML = `
+            <div id="end-game">
+                <p>${symbol} Wins!</p>
+                <button>Srtart Again</button>
+            </div>
+            `;
+        }
+        else{
+            box.addEventListener("click", () => {
+                if(isX && box.innerHTML == ``){
+                    box.className = "boxB";
+                    box.innerHTML = 'X' // `<h2 id="x-color">${symbol}</h2>`;
+                    console.log(topLeft.innerHTML + " X");
+                    symbol = 'O';
+                    isX = false;
+                }
+                else if(!isX && box.innerHTML == ``){
+                    box.innerHTML = 'O' // `<h2 id="o-color">${symbol}</h2>`;
+                    console.log(topLeft.innerHTML);
+                    console.log(box.innerHTML + " O");
+                    symbol = 'X';
+                    isX = true;
+                }
+            });
+        }
+    }
+)};
 
-            if(isX && box.innerHTML == ``){
-                box.innerHTML = `
-                    <h2 id="x-color">${symbol}</h2>`;
-                symbol = 'O';
-                isX = false;
-            }
-            else if(!isX && box.innerHTML == ``){
-                box.innerHTML = `
-                    <h2  id="o-color">${symbol}</h2>`;
-                symbol = 'X';
-                isX = true;
-            }
-
-        });
-    });
-}
 
 const startGame = () => {
     page.innerHTML = ``;
@@ -52,7 +93,7 @@ console.log(startingPage);
 
 const gamePhase = (startingPage, isX) => {
     if (startingPage){
-        startGame();
+        startGame();  
     }
     else if (!startingPage) {
         page.innerHTML = ``;
@@ -68,8 +109,9 @@ const gamePhase = (startingPage, isX) => {
             <div class="box" id="box-7"></div>
             <div class="box" id="box-8"></div>
             <div class="box" id="box-9"></div>
-    
+
         </section>
+        <div id="btn">Restart</div>
         `;
         if(isX){
             selectBox(document.querySelectorAll(".box"), "X");
@@ -81,7 +123,3 @@ const gamePhase = (startingPage, isX) => {
 }
 
 gamePhase(startingPage, isX);
-
-// me nab soumi amir ayman teena daniel 
-// 400 400 400 200 200 300
-// danielGF? sasha?
